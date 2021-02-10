@@ -3,7 +3,6 @@ header('Content-Type: application/json; charset=utf-8');
 
 require_once '../vendor/autoload.php';
 
-// api/$ Metodo $/1
 if ($_GET['url']) {
     $url = explode('/', $_GET['url']);
 
