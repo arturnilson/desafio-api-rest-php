@@ -38,8 +38,6 @@ class Provas
         }
     }
 
-    //TODO: ajustar formato data;
-
     public static function insert($data)
     {
         $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);

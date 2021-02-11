@@ -7,6 +7,9 @@ use App\Helpers\Helper;
 
 class ProvasService
 {
+    private static $tipos_prova_permitidos = [3, 5, 10, 21, 42];
+
+
     public function get($id = null)
     {
         if ($id) {
@@ -19,7 +22,15 @@ class ProvasService
     public function post()
     {
         $_POST['data'] = Helper::date_to_bd($_POST['data']);
+        $this->validaTipoProva($_POST['tipo_prova']);
 
         return Provas::insert($_POST);
+    }
+
+    private function validaTipoProva($tipo_prova)
+    {
+        if (!in_array($tipo_prova, self::$tipos_prova_permitidos)) {
+            throw new \Exception("Tipo de prova inválido. Tipos de provas permitidos: 3, 5, 10, 21, 42");
+        }
     }
 }

@@ -44,4 +44,9 @@ class CorredoresEmProva
             throw new \Exception("Não foi possível inserir Corredor em Prova.");
         }
     }
+
+    // public static function FunctionName(Type $var = null)
+    // {
+    //     # code...
+    // }
 }
