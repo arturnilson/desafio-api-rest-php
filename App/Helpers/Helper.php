@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Helper
 {
-    public static function date_to_bd($date, $default = null)
+    public static function dateToBD($date, $default = null)
     {
         $valida = preg_match('/\d{2}\/\d{2}\/\d{4}/', $date, $aux);
 

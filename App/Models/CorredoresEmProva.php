@@ -24,12 +24,12 @@ class CorredoresEmProva
 
     public static function insert($data)
     {
-        // $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
-        $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS, array(
-            \PDO::ATTR_EMULATE_PREPARES => false,
-            \PDO::MYSQL_ATTR_DIRECT_QUERY => false,
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-        ));
+        $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
+        // $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS, array(
+        //     \PDO::ATTR_EMULATE_PREPARES => false,
+        //     \PDO::MYSQL_ATTR_DIRECT_QUERY => false,
+        //     \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        // ));
 
         $sql = 'INSERT INTO ' . self::$table . '(id_corredor, id_prova) VALUES (:corredor, :prova)';
 
@@ -45,8 +45,22 @@ class CorredoresEmProva
         }
     }
 
-    // public static function FunctionName(Type $var = null)
-    // {
-    //     # code...
-    // }
+    public static function getCorredoresEmProvasByUnico($id_corredor)
+    {
+        $connectionPdo = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
+
+        $sql = 'SELECT cp.*, c.nome AS nome, p.data AS data FROM corredores_em_prova AS cp
+                JOIN corredores c ON cp.id_corredor = c.id_unico
+                JOIN provas p ON cp.id_prova = p.id
+                WHERE c.id_unico = ' . $id_corredor;
+
+        $stmt = $connectionPdo->prepare($sql);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+    }
 }

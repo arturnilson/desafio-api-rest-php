@@ -18,7 +18,7 @@ class Provas
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception("Nenhuma prova encontrada");
+            return null;
         }
     }
 
