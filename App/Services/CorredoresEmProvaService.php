@@ -14,9 +14,12 @@ class CorredoresEmProvaService
 
     public function post()
     {
-        $this->hasCompeticaoMesmaData($_POST);
-
-        return CorredoresEmProva::insert($_POST);
+        if ($_POST['id_corredor'] && $_POST['id_prova']) {
+            $this->hasCompeticaoMesmaData($_POST);
+            return CorredoresEmProva::insert($_POST);
+        } else {
+            throw new \Exception("Informe o id_corredor e o id_prova.");
+        }
     }
 
     private function hasCompeticaoMesmaData($post)
